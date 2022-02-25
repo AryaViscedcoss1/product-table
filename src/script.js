@@ -1,5 +1,6 @@
 $(document).ready(function()
 { 
+  var skudata=[];
   $('#update').hide();
   $('.error').hide();
   $('.success').hide();
@@ -10,10 +11,26 @@ $(document).ready(function()
     var name=$("#product_name").val();
     var price=$("#product_price").val();
     var quantity=$("#product_quantity").val();
-
+    $("#product_sku").val('');
+    $("#product_name").val('');
+    $("#product_price").val('');
+    $("#product_quantity").val('');
+    
+    if(elementinsku(sku))
+    {
+      $('.success').hide();
+      $('.error').show()
+      return ;
+    }
+    else
+    {
+    
+      skudata.push(sku);
+    }
+    
     //error
 
-    if(sku=="" || name=="" || price=="" || quantity=="")
+    if(sku=="" || name=="" || price=="" || quantity=="" )
     {    
       $('.success').hide();
          $('.error').show()
@@ -51,8 +68,33 @@ $(document).ready(function()
           name=$("#product_name").val();
           price=$("#product_price").val();
           quantity=$("#product_quantity").val();
+          $("#product_sku").val('');
+          $("#product_name").val('');
+          $("#product_price").val('');
+          $("#product_quantity").val('');
+          
 
           console.log('clicked on update');
+          if(elementinsku(sku))
+            {
+              $('.success').hide();
+              $('.error').show()
+              return ;
+            }
+          else
+          {
+          
+            skudata.push(sku);
+          }
+    
+          //error
+
+          if(sku=="" || name=="" || price=="" || quantity=="" )
+          {    
+            $('.success').hide();
+              $('.error').show()
+              return ;
+          }
 
          $(txt1).text(sku);
          $(txt2).text(name);
@@ -79,12 +121,32 @@ $(document).ready(function()
       $(txt4).remove();
       $(edit).remove();
       $(deletes).remove();
+      deleteinsku(sku)
 
     });
     $('.error').hide();
     $('.success').show();
   })
 
-  
+  function elementinsku(temp)
+  {
+    console.log(12);
+    l=skudata.length
+    for (i=0;i<l;i++)
+    {
+      if(skudata[i]==temp)
+      {
+        return true;
+      }
+
+    }
+  }
+  function deleteinsku(temp)
+  {
+    console.log(skudata);
+    skudata.pop(temp);
+    console.log(skudata);
+  }
 });
+
 
